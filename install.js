@@ -1,7 +1,11 @@
 #!/usr/bin/env node
 
 // maintainer note - x.y.z-ab version in package.json -> x.y.z
-var version = (process.env.npm_config_brave_electron_version || require('./package').version).replace(/-.*/, '')
+var version = process.env.npm_config_brave_electron_version
+if (!version) {
+  throw new Error('Missing target Electron version. Please set brave_electron_version in .npmrc.')
+}
+version = version.replace(/-.*/, '')
 
 var fs = require('fs')
 var os = require('os')
